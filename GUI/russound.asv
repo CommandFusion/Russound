@@ -1,0 +1,257 @@
+<gui>
+  <properties>
+    <project>Russound</project>
+    <designer>CommandFusion</designer>
+    <size>
+      <portrait width="768" height="1024" />
+      <landscape width="1024" height="768" />
+    </size>
+    <imagefolder>
+    </imagefolder>
+    <debug loaderrors="0" connectionerrors="0" />
+  </properties>
+  <systems>
+    <system name="Russound" ip="192.168.0.10" port="9621" protocol="tcp" alwayson="1" accept="0" ssl="0" maxconnections="0" heartbeatRx="" heartbeatTx="" heartbeatMode="-1" eom="\x0D\x0A" connectionStatus="0" disconnectionStatus="0">
+      <fb name="Russound Incoming Data" regex="(?msi)(.*)" />
+    </system>
+  </systems>
+  <themes>
+    <theme type="background" name=".cfblue2_bar_top"><![CDATA[ background-image: url(top_bar_bg.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".cfblue2_home[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(btn_home_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_home[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(btn_home_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="gauge" name=".cfblue2_vol[state='0']"><![CDATA[ background-image: url(vol_bar_off.png);]]></theme>
+    <theme type="gauge" name=".cfblue2_vol[state='1']"><![CDATA[ background-image: url(vol_bar_on.png);]]></theme>
+    <theme type="button" name=".cfblue2_list_content[state='0']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_content_off.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_list_content[state='1']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_content_on.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".cfblue2_title_l"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Futura'; text-align: left; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="background" name=".cfblue2_bar_bottom"><![CDATA[ background-image: url(bottom_bar_bg.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".cfblue2_bottom_L[state='0']"><![CDATA[padding: 0px 0px 0px 8px; background-image: url(bottom_btn_L_off.png); text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom_L[state='1']"><![CDATA[padding: 0px 0px 0px 8px; background-image: url(bottom_btn_L_on.png); text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom_R[state='0']"><![CDATA[padding: 0px 8px 0px 0px; background-image: url(bottom_btn_R_off.png); text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom_R[state='1']"><![CDATA[padding: 0px 8px 0px 0px; background-image: url(bottom_btn_R_on.png); text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom_M[state='0']"><![CDATA[padding: 0px 2px 0px 2px; -webkit-border-image: url(bottom_btn_M_off.png) 0 2 0 2; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom_M[state='1']"><![CDATA[padding: 0px 2px 0px 2px; -webkit-border-image: url(bottom_btn_M_on.png) 0 2 0 2; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom[state='0']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_off.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom[state='1']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_on.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".cfblue2_title_c"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Futura'; text-align: center; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="background" name=".cfblue2_portrait"><![CDATA[ background-image: url(bg_portrait.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".cfblue2_bottom_bare[state='0']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_bare_off.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_bottom_bare[state='1']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_bare_on.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".cfblue2_small_l"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 14px; font-family: 'Futura'; text-align: left; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="background" name=".cfblue2_popup"><![CDATA[ background-image: url(popup_bg.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".cfblue2_close[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(btn_close_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_close[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(btn_close_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_right[state='0']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_off.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_right[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_checkbox[state='0']"><![CDATA[padding: 0px 0px 0px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_checkbox[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(TaskComplete.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="background" name=".cfblue2_landscape"><![CDATA[ background-image: url(bg_landscape.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".cfblue2_main_menu[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(main_menu_btn.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_main_menu[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(main_menu_btn.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_list_title[state='0']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_title.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_list_title[state='1']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_title.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_list_content_large[state='0']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_album_off.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_list_content_large[state='1']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_album_on.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="input" name=".cfblue2_black"><![CDATA[ border-width: 0px; color: Black; font-size: 12px; font-family: 'Arial'; text-align: left; vertical-align: top; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="background" name=".cfblue2_popdown"><![CDATA[ background-image: url(popdown_bg.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".cfblue2_grey_center[state='0']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_off.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_center[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="gauge" name=".cfblue2_letters[state='0']"><![CDATA[ background-image: url(letter_bg.png);]]></theme>
+    <theme type="gauge" name=".cfblue2_letters[state='1']"><![CDATA[]]></theme>
+    <theme type="button" name=".cfblue2_movie_play[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(movie_play_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_movie_play[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(movie_play_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="input" name=".cfblue2_white"><![CDATA[ border-width: 0px; color: White; font-size: 18px; font-family: 'Arial'; text-align: left; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".cfblue2_menu_text"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 42px; font-family: 'Futura'; text-align: center; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="button" name=".cfblue2_blank[state='0']"><![CDATA[padding: 0px 0px 0px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_blank[state='1']"><![CDATA[padding: 0px 0px 0px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_left[state='0']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_off.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_left[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".cfblue2_title_r"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Futura'; text-align: right; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".cfblue2_small_c"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 14px; font-family: 'Futura'; text-align: center; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".cfblue2_small_r"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 14px; font-family: 'Futura'; text-align: right; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="button" name=".list_content[state='0']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_content_off.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".list_content[state='1']"><![CDATA[padding: 0px 10px 0px 10px; -webkit-border-image: url(list_content_on.png) 0 10 0 10; text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Arial'; font-weight: normal; font-style: none; text-decoration: none; text-align: left; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="input" name=".search"><![CDATA[ border-width: 0px; color: Black; font-size: 12px; font-family: 'Arial'; text-align: left; vertical-align: top; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="gauge" name=".letters[state='0']"><![CDATA[ background-image: url(letter_bg.png);]]></theme>
+    <theme type="gauge" name=".letters[state='1']"><![CDATA[]]></theme>
+    <theme type="button" name=".btn_home[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(btn_home_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_home[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(btn_home_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".list_title_c"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 18px; font-family: 'Futura'; text-align: center; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="gauge" name=".vol_bar[state='0']"><![CDATA[ background-image: url(vol_bar_off.png);]]></theme>
+    <theme type="gauge" name=".vol_bar[state='1']"><![CDATA[ background-image: url(vol_bar_on.png);]]></theme>
+    <theme type="button" name=".bottom_btn_bare[state='0']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_bare_off.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".bottom_btn_bare[state='1']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_bare_on.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".zone_name"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 20px; font-family: 'Futura'; text-align: left; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="button" name=".bottom_btn_L[state='0']"><![CDATA[padding: 0px 2px 0px 19px; -webkit-border-image: url(bottom_btn_L_off.png) 0 2 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".bottom_btn_L[state='1']"><![CDATA[padding: 0px 2px 0px 19px; -webkit-border-image: url(bottom_btn_L_on.png) 0 2 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".bottom_btn_M[state='0']"><![CDATA[padding: 0px 2px 0px 2px; -webkit-border-image: url(bottom_btn_M_off.png) 0 2 0 2; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".bottom_btn_M[state='1']"><![CDATA[padding: 0px 2px 0px 2px; -webkit-border-image: url(bottom_btn_M_on.png) 0 2 0 2; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".bottom_btn_R[state='0']"><![CDATA[padding: 0px 19px 0px 2px; -webkit-border-image: url(bottom_btn_R_off.png) 0 19 0 2; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".bottom_btn_R[state='1']"><![CDATA[padding: 0px 19px 0px 2px; -webkit-border-image: url(bottom_btn_R_on.png) 0 19 0 2; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".blank[state='0']"><![CDATA[padding: 0px 0px 0px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".blank[state='1']"><![CDATA[padding: 0px 0px 0px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="background" name=".top_bar_bg"><![CDATA[ background-image: url(top_bar_bg.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".bottom_btn[state='0']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_off.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".bottom_btn[state='1']"><![CDATA[padding: 0px 19px 0px 19px; -webkit-border-image: url(bottom_btn_on.png) 0 19 0 19; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 18px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".small_l"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 14px; font-family: 'Futura'; text-align: left; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="input" name=".search_movies"><![CDATA[ border-width: 0px; color: White; font-size: 18px; font-family: 'Arial'; text-align: left; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="background" name=".bottom_bar_bg"><![CDATA[ background-image: url(bottom_bar_bg.png); background-repeat: no-repeat;]]></theme>
+    <theme type="button" name=".cfblue2_grey_lrg_right[state='0']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_off.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_lrg_right[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+  </themes>
+  <tokens>
+    <token name="[lastzone]" value="0" persist="1" />
+  </tokens>
+  <scripts>
+    <script name="russound.js" />
+  </scripts>
+  <page name="Main" j="0" transition="" subtype="" time="0" ease="">
+    <portrait />
+    <landscape t="cfblue2_landscape">
+      <subpage name="Source_iPod" x="324" y="85" j="0" transition1="" subtype1="" time1="0" ease1="" transition2="" subtype2="" time2="0" ease2="" clickthrough="0" topmost="0" v="1" l="1" />
+      <subpage name="Source_List" x="741" y="302" j="10" transition1="moveIn" subtype1="fromBottom" time1="0.5" ease1="easeOut" transition2="moveIn" subtype2="fromBottom" time2="0.5" ease2="easeIn" clickthrough="0" topmost="0" v="1" l="0" />
+      <subpage name="BottomBar" x="318" y="697" j="0" transition1="None" subtype1="None" time1="0" ease1="" transition2="None" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="1" v="1" l="0" />
+      <subpage name="TopBar" x="318" y="10" j="0" transition1="None" subtype1="None" time1="0" ease1="" transition2="None" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="0" v="1" l="0" />
+      <img x="0" y="20" w="325" h="748" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">list_L_bg.png</img>
+      <list j="1" x="1" y="82" w="316" h="686" headerSub="" titleSub="" contentSub="List_ZoneItem" footerSub="" orientation="v" l="0" swipedelete="0" />
+      <img x="0" y="20" w="318" h="72" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">zone_top.png</img>
+      <txt j="0" x="14" y="30" w="156" h="39" t="cfblue2_title_c" wrap="True" l="0">All Zones</txt>
+      <btn j="0" x="172" y="28" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.allZonesOff()">
+        <inactive s="0">OFF</inactive>
+        <active s="0">OFF</active>
+      </btn>
+      <btn j="0" x="242" y="28" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.allZonesOn()">
+        <inactive s="0">ON</inactive>
+        <active s="0">ON</active>
+      </btn>
+    </landscape>
+  </page>
+  <subpage name="List_ZoneItem" w="318" h="62">
+    <btn j="1" x="3" y="2" w="307" h="60" t="list_content" flip="None" sim="1" l="0" s="1" js="RussoundC.selectZoneList(list+&quot;:&quot;+listIndex+&quot;:&quot;+join)">
+      <inactive s="1">   Zone Name</inactive>
+      <active s="1">   Zone Name</active>
+    </btn>
+  </subpage>
+  <subpage name="TopBar" w="706" h="82" t="top_bar_bg">
+    <img x="12" y="19" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="255" y="19" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="33" y="19" w="222" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="1" x="25" y="21" w="236" h="39" t="zone_name" wrap="True" l="0">Zone Name</txt>
+    <btn j="1" x="292" y="19" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zonePowerToggle()">
+      <inactive s="0">
+        <img x="10" y="5" w="32" h="32">transports_sml_12_wht.png</img>
+      </inactive>
+      <active s="0">
+        <img x="10" y="5" w="32" h="32">transports_sml_12_wht.png</img>
+      </active>
+    </btn>
+    <btn j="3" x="442" y="19" w="82" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zoneDNDToggle()">
+      <inactive s="0">DND</inactive>
+      <active s="0">DND</active>
+    </btn>
+    <btn j="4" x="531" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zonePartyToggle()">
+      <inactive s="0">P</inactive>
+      <active s="0">P</active>
+    </btn>
+    <btn j="5" x="588" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1">
+      <inactive s="0">M</inactive>
+      <active s="0">M</active>
+    </btn>
+    <btn j="6" x="645" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1">
+      <inactive s="0">S</inactive>
+      <active s="0">S</active>
+    </btn>
+  </subpage>
+  <subpage name="BottomBar" w="706" h="71">
+    <img x="0" y="0" w="706" h="71" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_bar_bg.png</img>
+    <btn j="0" x="156" y="18" w="52" h="44" t="bottom_btn" flip="None" sim="1" l="0" s="1" js="RussoundC.volumeDown()" repeatdelay="200">
+      <inactive s="0">
+        <img x="10" y="5" w="32" h="32">transports_sml_11_wht.png</img>
+      </inactive>
+      <active s="0">
+        <img x="10" y="5" w="32" h="32">transports_sml_11_wht.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="295" y="18" w="52" h="44" t="bottom_btn" flip="None" sim="1" l="0" s="1" js="RussoundC.volumeUp()" repeatdelay="200">
+      <inactive s="0">
+        <img x="10" y="5" w="32" h="32">transports_sml_13_wht.png</img>
+      </inactive>
+      <active s="0">
+        <img x="10" y="5" w="32" h="32">transports_sml_13_wht.png</img>
+      </active>
+    </btn>
+    <txt j="2" x="207" y="18" w="95" h="44" t="cfblue2_title_c" wrap="False" l="0">100%</txt>
+    <btn j="2" x="56" y="18" w="88" h="44" t="bottom_btn" flip="None" sim="0" l="0" s="1" js="RussoundC.zoneMuteToggle()">
+      <inactive s="0">MUTE</inactive>
+      <active s="0">MUTE</active>
+    </btn>
+    <img x="430" y="17" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="673" y="17" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="451" y="17" w="222" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <btn j="10" x="641" y="17" w="52" h="44" t="bottom_btn_bare" flip="None" sim="2" l="0" s="1" repeatdelay="200">
+      <inactive s="0">
+        <img x="13" y="0" w="26" h="44">icon_arrowUp.png</img>
+      </inactive>
+      <active s="0">
+        <img x="13" y="0" w="26" h="44">icon_arrowUp.png</img>
+      </active>
+    </btn>
+    <txt j="3" x="441" y="16" w="199" h="44" t="cfblue2_title_l" wrap="False" l="0">Source Name</txt>
+    <btn j="10" x="429" y="17" w="230" h="43" t="blank" flip="None" sim="2" l="0" s="1">
+      <inactive s="0">
+      </inactive>
+      <active s="0">
+      </active>
+    </btn>
+  </subpage>
+  <subpage name="Source_iPod" w="700" h="620">
+    <btn j="0" x="487" y="9" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
+      <inactive s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </inactive>
+      <active s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="557" y="9" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="624" y="9" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
+      <inactive s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </inactive>
+      <active s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </active>
+    </btn>
+  </subpage>
+  <subpage name="Source_ListItem" w="235" h="62">
+    <btn j="1" x="4" y="2" w="224" h="60" t="cfblue2_grey_lrg_right" flip="None" sim="0" l="0" s="1" js="RussoundC.selectSourceList(list+&quot;:&quot;+listIndex+&quot;:&quot;+join)">
+      <inactive s="1">Source Name</inactive>
+      <active s="1">Source Name</active>
+    </btn>
+    <btn j="2" x="8" y="4" w="16" h="16" t="cfblue2_checkbox" flip="None" sim="0" l="0" s="1">
+      <inactive s="0">
+      </inactive>
+      <active s="0">
+      </active>
+    </btn>
+  </subpage>
+  <subpage name="Source_List" w="274" h="404">
+    <img x="0" y="0" w="274" h="404" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">popup_lrg_bg.png</img>
+    <list j="2" x="20" y="59" w="235" h="344" headerSub="" titleSub="" contentSub="Source_ListItem" footerSub="" orientation="v" l="0" swipedelete="0" />
+    <img x="0" y="0" w="274" h="404" j="0" clickthrough="1" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">popup_lrg_overlay.png</img>
+    <btn j="10" x="207" y="14" w="49" h="39" t="cfblue2_close" flip="None" sim="2" l="0" s="1">
+      <inactive s="0">
+      </inactive>
+      <active s="0">
+      </active>
+    </btn>
+    <txt j="0" x="22" y="13" w="175" h="39" t="cfblue2_title_l" wrap="True" l="0">Sources</txt>
+  </subpage>
+</gui>
