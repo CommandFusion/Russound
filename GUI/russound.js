@@ -336,10 +336,8 @@ var Russound = function(systemName, feedbackName) {
 							self.currentSource = matches[5];
 							// Update the source list to show the selected source
 							CF.setJoin("s3", self.sources[self.currentSource].name);
-							if (self.currentSource != matches[5]) {
-								self.selectSource();
-							}
 							// Change the source subpage here based on the source type
+							self.selectSource();
 						}
 						break;
 					case "doNotDisturb":
@@ -437,7 +435,7 @@ var Russound = function(systemName, feedbackName) {
 								]);
 							}
 							switch (self.currentSourcePage) {
-								case "d21": // iBridge
+								case self.sourcePages["rnet am/fm tuner (internal)"]:
 									CF.setJoin("s31", value);
 									break;
 							}
@@ -524,7 +522,7 @@ var Russound = function(systemName, feedbackName) {
 						if (sourceNum == self.currentSource) {
 							switch (self.currentSourcePage) {
 								case self.sourcePages["rnet am/fm tuner (internal)"]:
-									CF.setJoin("s31", value);
+									CF.setJoin("s33", value);
 									break;
 							}
 						}
@@ -534,7 +532,7 @@ var Russound = function(systemName, feedbackName) {
 						if (sourceNum == self.currentSource) {
 							switch (self.currentSourcePage) {
 								case self.sourcePages["rnet am/fm tuner (internal)"]:
-									CF.setJoin("s32", value);
+									CF.setJoin("s34", value);
 									break;
 							}
 						}
@@ -544,7 +542,7 @@ var Russound = function(systemName, feedbackName) {
 						if (sourceNum == self.currentSource) {
 							switch (self.currentSourcePage) {
 								case self.sourcePages["rnet am/fm tuner (internal)"]:
-									CF.setJoin("s33", value);
+									CF.setJoin("s35", value);
 									break;
 							}
 						}
@@ -554,7 +552,7 @@ var Russound = function(systemName, feedbackName) {
 						if (sourceNum == self.currentSource) {
 							switch (self.currentSourcePage) {
 								case self.sourcePages["rnet am/fm tuner (internal)"]:
-									CF.setJoin("s34", value);
+									CF.setJoin("s36", value);
 									break;
 							}
 						}
@@ -783,6 +781,18 @@ var Russound = function(systemName, feedbackName) {
 		
 		// Show the subpage
 		CF.setJoin(self.currentSourcePage, 1);
+	};
+
+	self.play = function() {
+		self.sendEvent(c, z+1, "KeyRelease", "Play");
+	};
+
+	self.pause = function() {
+		self.sendEvent(c, z+1, "KeyRelease", "Pause");
+	};
+
+	self.stop = function() {
+		self.sendEvent(c, z+1, "KeyRelease", "Stop");
 	};
 
 	self.prev = function() {

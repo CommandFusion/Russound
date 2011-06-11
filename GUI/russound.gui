@@ -11,6 +11,20 @@
     <debug loaderrors="0" connectionerrors="0" />
     <devices>
       <device name="Bill's iPad">E91A8F969F26EA6FC4F6432A09076467</device>
+      <device name="Jarrod's iPhone">693CBC248292EB74D39DF7B0415B25CA</device>
+      <device name="Jarrod's iTouch">A1FDD44DB1F7CCDAA389BD22C9A92466</device>
+      <device name="Jarrod's iPhone 3G">3D0F1EA73558BA41AAE0105C51EDB533</device>
+      <device name="CommandFusion iTouch 3rd Gen">9C9309EA6867A4C87FEB1BC0E8A1A20C</device>
+      <device name="CommandFusion iPad">7FA41088AB80BA09CF10FA579B95C51C</device>
+      <device name="Lisa's iPhone">0D19F0E73C0A5334F0E468234AFEA2BB</device>
+      <device name="SP iPad">F9D64E2B02DC5FA0AE220B3D20A66115</device>
+      <device name="GuiLink iPad">7AE2743F5FB3D11EDAA5A6A2A6A90C04</device>
+      <device name="RFC iPad">B6F88BE7D54D6E8A10EB726C3655FF84</device>
+      <device name="Development iPad #2">F23E70BC8C90C29C94610D9B35F95A88</device>
+      <device name="CommandFusion iPhone 4">5AE0AE1AD7C838CFAE3BA26D23ED0712</device>
+      <device name="CommandFusion Archos5">D5652759DCC69DEC2503149E48959E55</device>
+      <device name="CommandFusion Black iPad2">4A10D1837F75AF1FC608D8C964A47900</device>
+      <device name="CommandFusion White iPad2">A65B95A392D915326B24CC37C7A88537</device>
     </devices>
   </properties>
   <systems>
@@ -217,7 +231,7 @@
     <txt j="0" x="366" y="16" w="88" h="44" t="cfblue2_title_r" wrap="False" l="0">Source:</txt>
   </subpage>
   <subpage name="Source_MenuSystem" w="700" h="620">
-    <btn j="0" x="247" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
+    <btn j="0" x="213" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
       <inactive s="0">
         <img x="16" y="0" w="43" h="42">transport_prev.png</img>
       </inactive>
@@ -225,15 +239,15 @@
         <img x="16" y="0" w="43" h="42">transport_prev.png</img>
       </active>
     </btn>
-    <btn j="0" x="317" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
+    <btn j="0" x="283" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="1" js="RussoundC.play()">
       <inactive s="0">
         <img x="12" y="0" w="43" h="42">transport_play.png</img>
       </inactive>
       <active s="0">
-        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
       </active>
     </btn>
-    <btn j="0" x="384" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
+    <btn j="0" x="417" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
       <inactive s="0">
         <img x="11" y="0" w="43" h="42">transport_next.png</img>
       </inactive>
@@ -290,9 +304,13 @@
       <active s="0">BACK</active>
     </btn>
     <txt j="3" x="122" y="65" w="457" h="39" t="cfblue2_lrg_c" wrap="True" l="0">iBridge</txt>
-    <btn j="0" x="471" y="12" w="172" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.toggleShuffle()">
-      <inactive s="9">SHUFFLE OFF</inactive>
-      <active s="9">SHUFFLE OFF</active>
+    <btn j="0" x="350" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="1" js="RussoundC.pause()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </active>
     </btn>
   </subpage>
   <subpage name="Source_ListItem" w="235" h="62">
@@ -308,30 +326,6 @@
     </btn>
   </subpage>
   <subpage name="Source_iBridge" w="700" h="620">
-    <btn j="0" x="247" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
-      <inactive s="0">
-        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
-      </inactive>
-      <active s="0">
-        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
-      </active>
-    </btn>
-    <btn j="0" x="317" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
-      <inactive s="0">
-        <img x="12" y="0" w="43" h="42">transport_play.png</img>
-      </inactive>
-      <active s="0">
-        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
-      </active>
-    </btn>
-    <btn j="0" x="384" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
-      <inactive s="0">
-        <img x="11" y="0" w="43" h="42">transport_next.png</img>
-      </inactive>
-      <active s="0">
-        <img x="11" y="0" w="43" h="42">transport_next.png</img>
-      </active>
-    </btn>
     <btn j="0" x="182" y="328" w="466" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.mmInit()">
       <inactive s="0">MUSIC</inactive>
       <active s="0">MUSIC</active>
@@ -357,9 +351,41 @@
     <txt j="34" x="197" y="278" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
     <txt j="44" x="33" y="275" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Song:</txt>
     <txt j="3" x="189" y="75" w="457" h="39" t="cfblue2_lrg_c" wrap="True" l="0">iBridge</txt>
-    <btn j="0" x="471" y="12" w="172" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.toggleShuffle()">
+    <btn j="0" x="471" y="12" w="172" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.toggleShuffle()">
       <inactive s="9">SHUFFLE OFF</inactive>
       <active s="9">SHUFFLE OFF</active>
+    </btn>
+    <btn j="0" x="183" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
+      <inactive s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </inactive>
+      <active s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="253" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="1" js="RussoundC.play()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="387" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
+      <inactive s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </inactive>
+      <active s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="320" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="1" js="RussoundC.pause()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </active>
     </btn>
   </subpage>
   <subpage name="Source_DABTuner" w="700" h="620">
@@ -418,30 +444,6 @@
     <txt j="0" x="368" y="449" w="133" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Presets:</txt>
   </subpage>
   <subpage name="Source_SMS3" w="700" h="620">
-    <btn j="0" x="247" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
-      <inactive s="0">
-        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
-      </inactive>
-      <active s="0">
-        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
-      </active>
-    </btn>
-    <btn j="0" x="317" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
-      <inactive s="0">
-        <img x="12" y="0" w="43" h="42">transport_play.png</img>
-      </inactive>
-      <active s="0">
-        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
-      </active>
-    </btn>
-    <btn j="0" x="384" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
-      <inactive s="0">
-        <img x="11" y="0" w="43" h="42">transport_next.png</img>
-      </inactive>
-      <active s="0">
-        <img x="11" y="0" w="43" h="42">transport_next.png</img>
-      </active>
-    </btn>
     <btn j="0" x="182" y="328" w="466" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.mmInit()">
       <inactive s="0">MUSIC</inactive>
       <active s="0">MUSIC</active>
@@ -467,6 +469,38 @@
     <txt j="34" x="197" y="278" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
     <txt j="44" x="33" y="275" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Song:</txt>
     <txt j="3" x="189" y="75" w="457" h="39" t="cfblue2_lrg_c" wrap="True" l="0">SMS3</txt>
+    <btn j="0" x="213" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
+      <inactive s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </inactive>
+      <active s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="283" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="1" js="RussoundC.play()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="417" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
+      <inactive s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </inactive>
+      <active s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="350" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="1" js="RussoundC.pause()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </active>
+    </btn>
   </subpage>
   <subpage name="Source_List" w="274" h="404">
     <img x="0" y="0" w="274" h="404" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">popup_lrg_bg.png</img>
