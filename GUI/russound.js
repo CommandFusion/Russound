@@ -784,26 +784,38 @@ var Russound = function(systemName, feedbackName) {
 	};
 
 	self.play = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
 		self.sendEvent(c, z+1, "KeyRelease", "Play");
 	};
 
 	self.pause = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
 		self.sendEvent(c, z+1, "KeyRelease", "Pause");
 	};
 
 	self.stop = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
 		self.sendEvent(c, z+1, "KeyRelease", "Stop");
 	};
 
 	self.prev = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
 		self.sendEvent(c, z+1, "KeyRelease", "Previous");
 	};
 
 	self.next = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
 		self.sendEvent(c, z+1, "KeyRelease", "Next");
 	};
 
 	self.toggleShuffle = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
 		self.sendEvent(c, z+1, "KeyRelease", "Shuffle");
 	};
 
