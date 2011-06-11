@@ -19,13 +19,58 @@ DIGITAL JOINS:
 6 = Zone Shared
 7 = Zone Loudness
 
+9 = Source Shuffle?
 10 = Source List
-11 = Source Shuffle
+11 = Tuner AM
+12 = Tuner FM
+
+- source subpages
+21 = iBridge
+22 = SMS3
+23 = AM/FM RNET
+24 = XM RNET
+25 = Sirius RNET
+26 = 
+27 = 
+28 = 
+29 = DVD
+30 = TV
 
 SERIAL JOINS:
 1 = Zone Name
 2 = Zone Volume Level
 3 = Zone Source Name
+
+9 = Shuffle State
+
+11 = MM Item 1
+12 = MM Item 2
+13 = MM Item 3
+14 = MM Item 4
+15 = MM Item 5
+16 = MM Item 6
+
+21 = MM Button 1
+22 = MM Button 2
+23 = MM Button 3
+24 = MM Button 4
+25 = MM Button 5
+26 = MM Button 6
+
+31 = Source Text 1
+32 = Source Text 2
+33 = Source Text 3
+34 = Source Text 4
+35 = Source Text 5
+36 = Source Text 6
+37 = Source Cover Art
+
+41 = Source Title 1
+42 = Source Title 2
+43 = Source Title 3
+44 = Source Title 4
+45 = Source Title 5
+46 = Source Title 6
 
 ANALOG JOINS:
 1 = Zone Volume Level
@@ -62,6 +107,7 @@ var Russound = function(systemName, feedbackName) {
 		sourceList: 		"l2",
 		currentZone:		0,
 		currentSource:		0,
+		currentSourcePage:	null,
 
 		// array of each zone
 		zones: {
@@ -90,7 +136,39 @@ var Russound = function(systemName, feedbackName) {
 		controllerRegex:	/(.*?) C\[(\d*)\].(.*?)=\"(.*)\"/i,				// Example: COMMAND C[1].key=value
 		zoneRegex:			/(.*?) C\[(\d*)\].Z\[(\d*)\].(.*?)=\"(.*)\"/i,	// Example: COMMAND C[1].Z[1].key=value
 		sourceRegex:		/(.*?) S\[(\d*)\].(.*?)=\"(.*)\"/i,				// Example: COMMAND S[1].key=value
-		eventRegex:			/EVENT C\[(\d*)\].Z\[(\d*)\]\!(.*?)/i			// Example: EVENT C[1].Z[1]!EventName Value
+		eventRegex:			/EVENT C\[(\d*)\].Z\[(\d*)\]\!(.*?)/i,			// Example: EVENT C[1].Z[1]!EventName Value
+
+		// Source Type Subpage Mappings
+		sourcePages: {
+			"amplifier": "d99",
+			"televsion": "d30",
+			"cable": "d99",
+			"video acc": "d99",
+			"satellite": "d99",
+			"vcr": "d99",
+			"laser disc": "d99",
+			"dvd": "d29",
+			"tuner / amplifier": "d99",
+			"misc audio": "d99",
+			"cd": "d99",
+			"home control": "d99",
+			"5 disc cd changer": "d99",
+			"6 disc cd changer": "d99",
+			"cd changer": "d99",
+			"dvd changer": "d99",
+			"rnet am/fm tuner (internal)": "d23",
+			"rnet am/fm tuner (external)": "d23",
+			"rnet xm tuner (internal)": "d24",
+			"rnet xm tuner (external)": "d24",
+			"rnet sirius tuner (internal)": "d25",
+			"rnet sirius tuner (external)": "d25",
+			"rnet sms3": "d22",
+			"rnet ibridge dock": "d21",
+			"rnet ibridge bay": "d21",
+			"arcam t32": "d99",
+			"dms-3.1 media streamer": "d99",
+			"dms-3.1 am/fm tuner": "d99"
+		}
 	};
 
 	// zone object prototype
@@ -116,7 +194,7 @@ var Russound = function(systemName, feedbackName) {
 		this.name = "";
 		this.type = "";
 		this.composerName = "";
-		this.channel = "";
+		this.channel = "";				// Tuner band
 		this.coverArtURL = "";
 		this.channelName = "";
 		this.genre = "";
@@ -129,7 +207,7 @@ var Russound = function(systemName, feedbackName) {
 		this.radioText2 = "";
 		this.radioText3 = "";
 		this.radioText4 = "";
-		this.shuffle = 0; // 0 = OFF, 1 = SONG, 2 = ALBUM
+		this.shuffleMode = 0;			// OFF, SONG, ALBUM
 		this.mode = "";
 	};
 
@@ -254,11 +332,12 @@ var Russound = function(systemName, feedbackName) {
 					case "currentSource":
 						self.zones["c"+matches[2]][matches[3]-1].currentSource = matches[5];
 						if (self.currentZone == theZone) {
+							// new source selected
+							self.currentSource = matches[5];
+							// Update the source list to show the selected source
+							CF.setJoin("s3", self.sources[self.currentSource].name);
 							if (self.currentSource != matches[5]) {
-								// new source selected
-								self.currentSource = matches[5];
-								// Update the source list to show the selected source
-								CF.setJoin("s3", self.sources[self.currentSource-1].name);
+								self.selectSource();
 							}
 							// Change the source subpage here based on the source type
 						}
@@ -318,7 +397,7 @@ var Russound = function(systemName, feedbackName) {
 				// 3 = parameter
 				// 4 = value
 
-				var sourceNum = matches[2]-1;
+				var sourceNum = matches[2];
 				var value = matches[4];
 
 				switch (matches[3]) { // parameter
@@ -332,15 +411,179 @@ var Russound = function(systemName, feedbackName) {
 						if (self.sources[sourceNum].type != "" && oldName != value) {
 							CF.listAdd(self.sourceList, [
 								{
-									s1: value, // Zone name string
+									s1: value, // Source name string
 									d1: {
 										tokens: {
-											"[sourcenum]": matches[2] // Zone number token
+											"[sourcenum]": matches[2] // Source number token
 										}
 									},
 								}
 							]);
 						}
+						break;
+					case "channel":
+						// Tuner band
+						self.sources[sourceNum].channel = value;
+						if (sourceNum == self.currentSource) {
+							if (value.indexOf("FM") > 0) {
+								CF.setJoins([
+									{join: "d11", value: 0},
+									{join: "d12", value: 1}
+								]);
+							} else {
+								CF.setJoins([
+									{join: "d11", value: 1},
+									{join: "d12", value: 0}
+								]);
+							}
+							switch (self.currentSourcePage) {
+								case "d21": // iBridge
+									CF.setJoin("s31", value);
+									break;
+							}
+						}
+						break;
+					case "artistName":
+						self.sources[sourceNum].artistName = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet ibridge dock"]:
+									CF.setJoin("s31", value);
+									break;
+								case self.sourcePages["rnet xm tuner (internal)"]:
+									CF.setJoin("s33", value);
+									break;
+								case self.sourcePages["rnet sirius tuner (internal)"]:
+									CF.setJoin("s34", value);
+									break;
+								case self.sourcePages["rnet sms3"]:
+									CF.setJoin("s31", value);
+									break;
+								case self.sourcePages["dms-3.1 media streamer"]:
+									CF.setJoin("s31", value);
+									break;
+							}
+						}
+						break;
+					case "albumName":
+						self.sources[sourceNum].albumName = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet ibridge dock"]:
+									CF.setJoin("s32", value);
+									break;
+								case self.sourcePages["rnet sms3"]:
+									CF.setJoin("s32", value);
+									break;
+								case self.sourcePages["dms-3.1 media streamer"]:
+									CF.setJoin("s32", value);
+									break;
+							}
+						}
+						break;
+					case "playlistName":
+						self.sources[sourceNum].playlistName = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet ibridge dock"]:
+									CF.setJoin("s33", value);
+									break;
+								case self.sourcePages["rnet sms3"]:
+									CF.setJoin("s33", value);
+									break;
+								case self.sourcePages["dms-3.1 media streamer"]:
+									CF.setJoin("s33", value);
+									break;
+							}
+						}
+						break;
+					case "songName":
+						self.sources[sourceNum].songName = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet ibridge dock"]:
+									CF.setJoin("s34", value);
+									break;
+								case self.sourcePages["rnet xm tuner (internal)"]:
+									CF.setJoin("s34", value);
+									break;
+								case self.sourcePages["rnet sirius tuner (internal)"]:
+									CF.setJoin("s35", value);
+									break;
+								case self.sourcePages["rnet sms3"]:
+									CF.setJoin("s34", value);
+									break;
+								case self.sourcePages["dms-3.1 media streamer"]:
+									CF.setJoin("s34", value);
+									break;
+							}
+						}
+						break;
+					case "radioText":
+						self.sources[sourceNum].radioText = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet am/fm tuner (internal)"]:
+									CF.setJoin("s31", value);
+									break;
+							}
+						}
+						break;
+					case "radioText2":
+						self.sources[sourceNum].radioText2 = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet am/fm tuner (internal)"]:
+									CF.setJoin("s32", value);
+									break;
+							}
+						}
+						break;
+					case "radioText3":
+						self.sources[sourceNum].radioText3 = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet am/fm tuner (internal)"]:
+									CF.setJoin("s33", value);
+									break;
+							}
+						}
+						break;
+					case "radioText4":
+						self.sources[sourceNum].radioText4 = value;
+						if (sourceNum == self.currentSource) {
+							switch (self.currentSourcePage) {
+								case self.sourcePages["rnet am/fm tuner (internal)"]:
+									CF.setJoin("s34", value);
+									break;
+							}
+						}
+						break;
+					case "shuffleMode":
+						self.sources[sourceNum].shuffleMode = value;
+						if (sourceNum == self.currentSource) {
+							CF.setJoin("s9", "SHUFFLE" + value);
+							break;
+						}
+						break;
+					// N S[s].MMMenuItem[1-6].text=”<text string>”
+					case "MMMenuItem1.text":
+						CF.setJoin("s11", value);
+						break;
+					case "MMMenuItem2.text":
+						CF.setJoin("s12", value);
+						break;
+					case "MMMenuItem3.text":
+						CF.setJoin("s13", value);
+						break;
+					case "MMMenuItem4.text":
+						CF.setJoin("s14", value);
+						break;
+					case "MMMenuItem5.text":
+						CF.setJoin("s15", value);
+						break;
+					case "MMMenuItem6.text":
+						CF.setJoin("s16", value);
 						break;
 				}
 
@@ -523,11 +766,114 @@ var Russound = function(systemName, feedbackName) {
 			self.sendMsg("WATCH", null, null, source, " ON");
 
 			// Set the zone to the chosen source
+			self.currentSource = source;
 			var c = self.getZoneController(self.currentZone);
 			var z = self.getControllerZone(self.currentZone);
 			self.sendEvent(c, z+1, "SelectSource", source);
 		}
+
+		// Hide the previous source subpage
+		if (self.currentSourcePage !== null) {
+			CF.setJoin(self.currentSourcePage, 0);
+		}
+
+		// Show the correct source subpage
+		var sourceType = self.sources[self.currentSource].type.toLowerCase();
+		self.currentSourcePage = self.sourcePages[sourceType];
+		
+		// Show the subpage
+		CF.setJoin(self.currentSourcePage, 1);
 	};
+
+	self.prev = function() {
+		self.sendEvent(c, z+1, "KeyRelease", "Previous");
+	};
+
+	self.next = function() {
+		self.sendEvent(c, z+1, "KeyRelease", "Next");
+	};
+
+	self.toggleShuffle = function() {
+		self.sendEvent(c, z+1, "KeyRelease", "Shuffle");
+	};
+
+	// ======================================================================
+	// Tuner Controls
+	// ======================================================================
+
+	self.tunerBandToggle = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "KeyRelease", "Play");
+	};
+
+	self.tunerMuteToggle = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "KeyRelease", "Pause");
+	};
+
+	self.tunerUp = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "KeyRelease", "ChannelUp");
+	};
+
+	self.tunerDown = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "KeyRelease", "ChannelDown");
+	};
+
+	self.tunerPresetNext = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "KeyRelease", "Next");
+	};
+
+	self.tunerPresetPrev = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "KeyRelease", "Previous");
+	};
+
+	// ======================================================================
+	// MediaManagement
+	// ======================================================================
+
+	self.mmInit = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "MMInit");
+	};
+
+	self.mmSelectItem = function(item) {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "MMSelectItem", item);
+	};
+
+	self.mmNextItems = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "MMNextItems");
+	};
+
+	self.mmPrevItems = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "MMPrevItems");
+	};
+
+	self.mmBack = function() {
+		var c = self.getZoneController(self.currentZone);
+		var z = self.getControllerZone(self.currentZone);
+		self.sendEvent(c, z+1, "MMPrevScreen");
+	};
+
+	// ======================================================================
+	// Message Building and Sending functions
+	// ======================================================================
 
 	self.buildMsg = function(cmd, c, z, s, msg) {
 		var newMsg
@@ -610,7 +956,7 @@ var Russound = function(systemName, feedbackName) {
 	}
 
 	// Create the sources array
-	for (var i = 0; i < self.controller.numSources; i++) {
+	for (var i = 0; i <= self.controller.numSources; i++) {
 		self.sources.push(new source());
 	}
 

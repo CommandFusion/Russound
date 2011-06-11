@@ -9,6 +9,9 @@
     <imagefolder>
     </imagefolder>
     <debug loaderrors="0" connectionerrors="0" />
+    <devices>
+      <device name="Bill's iPad">E91A8F969F26EA6FC4F6432A09076467</device>
+    </devices>
   </properties>
   <systems>
     <system name="Russound" ip="192.168.0.10" port="9621" protocol="tcp" alwayson="1" accept="0" ssl="0" maxconnections="0" heartbeatRx="" heartbeatTx="" heartbeatMode="-1" eom="\x0D\x0A" connectionStatus="0" disconnectionStatus="0">
@@ -98,6 +101,11 @@
     <theme type="background" name=".bottom_bar_bg"><![CDATA[ background-image: url(bottom_bar_bg.png); background-repeat: no-repeat;]]></theme>
     <theme type="button" name=".cfblue2_grey_lrg_right[state='0']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_off.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
     <theme type="button" name=".cfblue2_grey_lrg_right[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="text" name=".cfblue2_lrg_r"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 24px; font-family: 'Futura'; text-align: right; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".cfblue2_lrg_c"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 24px; font-family: 'Futura'; text-align: center; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".cfblue2_lrg_l"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 24px; font-family: 'Futura'; text-align: left; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="button" name=".cfblue2_grey_lrg_center[state='0']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_off.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_lrg_center[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
   </themes>
   <tokens>
     <token name="[lastzone]" value="0" persist="1" />
@@ -108,7 +116,10 @@
   <page name="Main" j="0" transition="" subtype="" time="0" ease="">
     <portrait />
     <landscape t="cfblue2_landscape">
-      <subpage name="Source_iPod" x="324" y="85" j="0" transition1="" subtype1="" time1="0" ease1="" transition2="" subtype2="" time2="0" ease2="" clickthrough="0" topmost="0" v="1" l="1" />
+      <subpage name="Source_MenuSystem" x="324" y="85" j="20" transition1="moveIn" subtype1="fromRight" time1="0.5" ease1="" transition2="moveIn" subtype2="fromRight" time2="0.5" ease2="" clickthrough="0" topmost="0" v="1" l="1" />
+      <subpage name="Source_iBridge" x="324" y="85" j="21" transition1="moveIn" subtype1="fromRight" time1="0.5" ease1="" transition2="moveIn" subtype2="fromRight" time2="0.5" ease2="" clickthrough="0" topmost="0" v="1" l="1" />
+      <subpage name="Source_DABTuner" x="324" y="85" j="23" transition1="moveIn" subtype1="fromRight" time1="0.5" ease1="" transition2="moveIn" subtype2="fromRight" time2="0.5" ease2="" clickthrough="0" topmost="0" v="1" l="0" />
+      <subpage name="Source_SMS3" x="324" y="85" j="22" transition1="moveIn" subtype1="fromRight" time1="0.5" ease1="" transition2="moveIn" subtype2="fromRight" time2="0.5" ease2="" clickthrough="0" topmost="0" v="1" l="1" />
       <subpage name="Source_List" x="741" y="302" j="10" transition1="moveIn" subtype1="fromBottom" time1="0.5" ease1="easeOut" transition2="moveIn" subtype2="fromBottom" time2="0.5" ease2="easeIn" clickthrough="0" topmost="0" v="1" l="0" />
       <subpage name="BottomBar" x="318" y="697" j="0" transition1="None" subtype1="None" time1="0" ease1="" transition2="None" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="1" v="1" l="0" />
       <subpage name="TopBar" x="318" y="10" j="0" transition1="None" subtype1="None" time1="0" ease1="" transition2="None" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="0" v="1" l="0" />
@@ -185,27 +196,28 @@
       <inactive s="0">MUTE</inactive>
       <active s="0">MUTE</active>
     </btn>
-    <img x="430" y="17" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="460" y="17" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
     <img x="673" y="17" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
-    <img x="451" y="17" w="222" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
-    <btn j="10" x="641" y="17" w="52" h="44" t="bottom_btn_bare" flip="None" sim="2" l="0" s="1" repeatdelay="200">
+    <img x="481" y="17" w="192" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <btn j="10" x="641" y="17" w="52" h="44" t="bottom_btn_bare" flip="None" sim="2" l="0" s="0" repeatdelay="200">
       <inactive s="0">
         <img x="13" y="0" w="26" h="44">icon_arrowUp.png</img>
       </inactive>
       <active s="0">
-        <img x="13" y="0" w="26" h="44">icon_arrowUp.png</img>
+        <img x="13" y="2" w="26" h="44">icon_arrowDown.png</img>
       </active>
     </btn>
-    <txt j="3" x="441" y="16" w="199" h="44" t="cfblue2_title_l" wrap="False" l="0">Source Name</txt>
-    <btn j="10" x="429" y="17" w="230" h="43" t="blank" flip="None" sim="2" l="0" s="1">
+    <txt j="3" x="476" y="16" w="164" h="44" t="cfblue2_title_l" wrap="False" l="0">Source Name</txt>
+    <btn j="10" x="394" y="17" w="265" h="43" t="blank" flip="None" sim="2" l="0" s="1">
       <inactive s="0">
       </inactive>
       <active s="0">
       </active>
     </btn>
+    <txt j="0" x="366" y="16" w="88" h="44" t="cfblue2_title_r" wrap="False" l="0">Source:</txt>
   </subpage>
-  <subpage name="Source_iPod" w="700" h="620">
-    <btn j="0" x="487" y="9" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
+  <subpage name="Source_MenuSystem" w="700" h="620">
+    <btn j="0" x="247" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
       <inactive s="0">
         <img x="16" y="0" w="43" h="42">transport_prev.png</img>
       </inactive>
@@ -213,7 +225,7 @@
         <img x="16" y="0" w="43" h="42">transport_prev.png</img>
       </active>
     </btn>
-    <btn j="0" x="557" y="9" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
+    <btn j="0" x="317" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
       <inactive s="0">
         <img x="12" y="0" w="43" h="42">transport_play.png</img>
       </inactive>
@@ -221,7 +233,7 @@
         <img x="12" y="0" w="43" h="42">transport_pause.png</img>
       </active>
     </btn>
-    <btn j="0" x="624" y="9" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
+    <btn j="0" x="384" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
       <inactive s="0">
         <img x="11" y="0" w="43" h="42">transport_next.png</img>
       </inactive>
@@ -229,9 +241,62 @@
         <img x="11" y="0" w="43" h="42">transport_next.png</img>
       </active>
     </btn>
+    <btn j="0" x="122" y="161" w="456" h="60" t="cfblue2_list_content" flip="None" sim="1" l="0" s="1" js="RussoundC.mmSelectItem(1)">
+      <inactive s="11">
+      </inactive>
+      <active s="11">
+      </active>
+    </btn>
+    <btn j="0" x="122" y="221" w="456" h="60" t="cfblue2_list_content" flip="None" sim="1" l="0" s="1" js="RussoundC.mmSelectItem(2)">
+      <inactive s="12">
+      </inactive>
+      <active s="12">
+      </active>
+    </btn>
+    <btn j="0" x="122" y="281" w="456" h="60" t="cfblue2_list_content" flip="None" sim="1" l="0" s="1" js="RussoundC.mmSelectItem(3)">
+      <inactive s="13">
+      </inactive>
+      <active s="13">
+      </active>
+    </btn>
+    <btn j="0" x="122" y="341" w="456" h="60" t="cfblue2_list_content" flip="None" sim="1" l="0" s="1" js="RussoundC.mmSelectItem(4)">
+      <inactive s="14">
+      </inactive>
+      <active s="14">
+      </active>
+    </btn>
+    <btn j="0" x="122" y="401" w="456" h="60" t="cfblue2_list_content" flip="None" sim="1" l="0" s="1" js="RussoundC.mmSelectItem(5)">
+      <inactive s="15">
+      </inactive>
+      <active s="15">
+      </active>
+    </btn>
+    <btn j="0" x="122" y="461" w="456" h="60" t="cfblue2_list_content" flip="None" sim="1" l="0" s="1" js="RussoundC.mmSelectItem(6)">
+      <inactive s="16">
+      </inactive>
+      <active s="16">
+      </active>
+    </btn>
+    <btn j="0" x="119" y="530" w="92" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.mmPrev()">
+      <inactive s="0">PREV</inactive>
+      <active s="0">PREV</active>
+    </btn>
+    <btn j="0" x="485" y="526" w="92" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.mmNext()">
+      <inactive s="0">NEXT</inactive>
+      <active s="0">NEXT</active>
+    </btn>
+    <btn j="0" x="119" y="106" w="92" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.mmBack()">
+      <inactive s="0">BACK</inactive>
+      <active s="0">BACK</active>
+    </btn>
+    <txt j="3" x="122" y="65" w="457" h="39" t="cfblue2_lrg_c" wrap="True" l="0">iBridge</txt>
+    <btn j="0" x="471" y="12" w="172" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.toggleShuffle()">
+      <inactive s="9">SHUFFLE OFF</inactive>
+      <active s="9">SHUFFLE OFF</active>
+    </btn>
   </subpage>
   <subpage name="Source_ListItem" w="235" h="62">
-    <btn j="1" x="4" y="2" w="224" h="60" t="cfblue2_grey_lrg_right" flip="None" sim="0" l="0" s="1" js="RussoundC.selectSourceList(list+&quot;:&quot;+listIndex+&quot;:&quot;+join)">
+    <btn j="1" x="4" y="2" w="224" h="60" t="cfblue2_grey_lrg_center" flip="None" sim="1" l="0" s="1" js="RussoundC.selectSourceList(list+&quot;:&quot;+listIndex+&quot;:&quot;+join)">
       <inactive s="1">Source Name</inactive>
       <active s="1">Source Name</active>
     </btn>
@@ -241,6 +306,167 @@
       <active s="0">
       </active>
     </btn>
+  </subpage>
+  <subpage name="Source_iBridge" w="700" h="620">
+    <btn j="0" x="247" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
+      <inactive s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </inactive>
+      <active s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="317" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="384" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
+      <inactive s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </inactive>
+      <active s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="182" y="328" w="466" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.mmInit()">
+      <inactive s="0">MUSIC</inactive>
+      <active s="0">MUSIC</active>
+    </btn>
+    <img x="184" y="127" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="127" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="127" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="31" x="197" y="128" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="41" x="33" y="125" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Artist:</txt>
+    <img x="184" y="177" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="177" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="177" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="32" x="197" y="178" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="42" x="33" y="175" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Album:</txt>
+    <img x="184" y="227" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="227" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="227" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="33" x="197" y="228" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="43" x="33" y="225" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Playlist:</txt>
+    <img x="184" y="277" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="277" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="277" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="34" x="197" y="278" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="44" x="33" y="275" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Song:</txt>
+    <txt j="3" x="189" y="75" w="457" h="39" t="cfblue2_lrg_c" wrap="True" l="0">iBridge</txt>
+    <btn j="0" x="471" y="12" w="172" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.toggleShuffle()">
+      <inactive s="9">SHUFFLE OFF</inactive>
+      <active s="9">SHUFFLE OFF</active>
+    </btn>
+  </subpage>
+  <subpage name="Source_DABTuner" w="700" h="620">
+    <img x="184" y="127" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="127" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="127" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="31" x="197" y="128" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="41" x="33" y="125" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Channel:</txt>
+    <img x="184" y="177" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="177" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="177" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="32" x="197" y="178" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="42" x="33" y="175" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Genre:</txt>
+    <img x="184" y="227" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="227" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="227" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="33" x="197" y="228" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <img x="184" y="277" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="277" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="277" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="34" x="197" y="278" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <img x="184" y="327" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="327" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="327" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="35" x="197" y="328" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <img x="184" y="377" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="377" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="377" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="36" x="197" y="378" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="3" x="189" y="65" w="457" h="39" t="cfblue2_lrg_c" wrap="True" l="0">DAB Tuner</txt>
+    <btn j="11" x="184" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="0" l="0" s="1" js="RussoundC.tunerBandToggle()">
+      <inactive s="0">AM</inactive>
+      <active s="0">AM</active>
+    </btn>
+    <btn j="12" x="254" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="0" l="0" s="1" js="RussoundC.tunerBandToggle()">
+      <inactive s="0">FM</inactive>
+      <active s="0">FM</active>
+    </btn>
+    <btn j="0" x="168" y="449" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.tunerDown()" repeatdelay="250">
+      <inactive s="0">-</inactive>
+      <active s="0">-</active>
+    </btn>
+    <btn j="0" x="238" y="449" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.tunerUp()" repeatdelay="250">
+      <inactive s="0">+</inactive>
+      <active s="0">+</active>
+    </btn>
+    <txt j="0" x="28" y="449" w="133" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Tune:</txt>
+    <btn j="0" x="508" y="449" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.tunerPresetPrev()" repeatdelay="250">
+      <inactive s="0">-</inactive>
+      <active s="0">-</active>
+    </btn>
+    <btn j="0" x="578" y="449" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.tunerPresetNext()" repeatdelay="250">
+      <inactive s="0">+</inactive>
+      <active s="0">+</active>
+    </btn>
+    <txt j="0" x="368" y="449" w="133" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Presets:</txt>
+  </subpage>
+  <subpage name="Source_SMS3" w="700" h="620">
+    <btn j="0" x="247" y="13" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.prev()">
+      <inactive s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </inactive>
+      <active s="0">
+        <img x="16" y="0" w="43" h="42">transport_prev.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="317" y="13" w="67" h="44" t="bottom_btn_M" flip="None" sim="1" l="0" s="0" js="RussoundC.playPause()">
+      <inactive s="0">
+        <img x="12" y="0" w="43" h="42">transport_play.png</img>
+      </inactive>
+      <active s="0">
+        <img x="12" y="0" w="43" h="42">transport_pause.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="384" y="13" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.next()">
+      <inactive s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </inactive>
+      <active s="0">
+        <img x="11" y="0" w="43" h="42">transport_next.png</img>
+      </active>
+    </btn>
+    <btn j="0" x="182" y="328" w="466" h="44" t="cfblue2_bottom" flip="None" sim="1" l="0" s="1" js="RussoundC.mmInit()">
+      <inactive s="0">MUSIC</inactive>
+      <active s="0">MUSIC</active>
+    </btn>
+    <img x="184" y="127" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="127" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="127" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="31" x="197" y="128" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="41" x="33" y="125" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Artist:</txt>
+    <img x="184" y="177" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="177" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="177" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="32" x="197" y="178" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="42" x="33" y="175" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Album:</txt>
+    <img x="184" y="227" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="227" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="227" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="33" x="197" y="228" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="43" x="33" y="225" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Playlist:</txt>
+    <img x="184" y="277" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
+    <img x="627" y="277" w="20" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_R.png</img>
+    <img x="205" y="277" w="422" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_M.png</img>
+    <txt j="34" x="197" y="278" w="436" h="39" t="zone_name" wrap="True" l="0">Text</txt>
+    <txt j="44" x="33" y="275" w="136" h="39" t="cfblue2_lrg_r" wrap="True" l="0">Song:</txt>
+    <txt j="3" x="189" y="75" w="457" h="39" t="cfblue2_lrg_c" wrap="True" l="0">SMS3</txt>
   </subpage>
   <subpage name="Source_List" w="274" h="404">
     <img x="0" y="0" w="274" h="404" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">popup_lrg_bg.png</img>
