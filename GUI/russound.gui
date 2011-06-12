@@ -140,14 +140,10 @@
       <img x="0" y="20" w="325" h="748" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">list_L_bg.png</img>
       <list j="1" x="1" y="82" w="316" h="686" headerSub="" titleSub="" contentSub="List_ZoneItem" footerSub="" orientation="v" l="0" swipedelete="0" />
       <img x="0" y="20" w="318" h="72" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">zone_top.png</img>
-      <txt j="0" x="14" y="30" w="156" h="39" t="cfblue2_title_c" wrap="True" l="0">All Zones</txt>
-      <btn j="0" x="172" y="28" w="70" h="44" t="bottom_btn_L" flip="None" sim="1" l="0" s="1" js="RussoundC.allZonesOff()">
-        <inactive s="0">OFF</inactive>
-        <active s="0">OFF</active>
-      </btn>
-      <btn j="0" x="242" y="28" w="70" h="44" t="bottom_btn_R" flip="None" sim="1" l="0" s="1" js="RussoundC.allZonesOn()">
-        <inactive s="0">ON</inactive>
-        <active s="0">ON</active>
+      <txt j="0" x="14" y="30" w="156" h="39" t="cfblue2_title_l" wrap="True" l="0">Zone List</txt>
+      <btn j="0" x="188" y="28" w="123" h="44" t="bottom_btn" flip="None" sim="1" l="0" s="1" js="RussoundC.allZonesOff()">
+        <inactive s="0">ALL OFF</inactive>
+        <active s="0">ALL OFF</active>
       </btn>
     </landscape>
   </page>
@@ -178,7 +174,7 @@
       <inactive s="0">P</inactive>
       <active s="0">P</active>
     </btn>
-    <btn j="5" x="588" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1">
+    <btn j="5" x="588" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zonePartyMaster()">
       <inactive s="0">M</inactive>
       <active s="0">M</active>
     </btn>

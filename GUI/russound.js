@@ -106,8 +106,10 @@ var Russound = function(systemName, feedbackName) {
 		zoneList: 			"l1",
 		sourceList: 		"l2",
 		currentZone:		0,
+		currentController:	0,
 		currentSource:		0,
 		currentSourcePage:	null,
+		maxControllers:		6,
 
 		// array of each zone
 		zones: {
@@ -128,7 +130,7 @@ var Russound = function(systemName, feedbackName) {
 			macAddress: "",
 			status: 0,
 			version: "",
-			numZones: 48,
+			numZones: 8,
 			numSources: 8
 		},
 
@@ -216,24 +218,11 @@ var Russound = function(systemName, feedbackName) {
 			// Connected!
 			LOG_RUSSOUND("Connected");
 
-			// On connection startup, we want to have the last selected zone showing
-			// So we need to persist the zone selection in a global token
-			// Check that the global token exists, and has been set. Default will be zone 0 (undefined)
-			// in which case we use the lowest defined zone to start with. Then each launch we use the persisted value
-			CF.getJoin(CF.GlobalTokensJoin, function(j, v, tokens) {
-				if (tokens["[lastzone]"] !== undefined) {
-					self.selectZone(tokens["[lastzone]"]);
-				} else {
-					// No token in the GUI, create one that persists... TODO
-				}
+			// Get list of sources
+			self.getSources();
 
-				// Get list of zones
-				self.getSources();
-
-				// Wait for sources, then get list of zones
-				setTimeout(function() {self.getZones();}, 100);
-			});
-
+			// Wait for sources, then get list of zones
+			setTimeout(function() {self.getZones();}, 100);
 		} else {
 			// Disconnected!
 			LOG_RUSSOUND("Disconnected");
@@ -282,56 +271,47 @@ var Russound = function(systemName, feedbackName) {
 				// 4 = parameter
 				// 5 = value
 
-				var theZone = self.getZone(matches[2], matches[3]);
+				var theZone = self.zones["c"+matches[2]][matches[3]-1];
 
 				switch (matches[4]) { // parameter
 					case "name":
-						var oldName = self.zones["c"+matches[2]][matches[3]-1].name;
-						self.zones["c"+matches[2]][matches[3]-1].name = matches[5];
-						self.zones["c"+matches[2]][matches[3]-1].controller = matches[2];
-						// Add the item to the zone list, ONLY if name didn't match previous spot
+						var oldName = theZone.name;
+						theZone.name = matches[5];
+						theZone.controller = matches[2];
+						// refresh zone list ONLY if name didn't match previous spot
 						if (oldName != matches[5]) {
-							CF.listAdd(self.zoneList, [
-								{
-									s1: matches[5], // Zone name string
-									d1: {
-										tokens: {
-											"[zonenum]": theZone // Zone number token
-										}
-									},
-								}
-							]);
+							self.generateZoneList();
 						}
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							// Update the zone name text
 							CF.setJoin("s1", matches[5]);
 						} else if (self.currentZone == 0) {
 							// Select the current zone if no previous zone was selected
-							self.selectZone(theZone);
+							self.selectZone(matches[2], matches[3]);
 						}
 						break;
 					case "status":
 						self.zones["c"+matches[2]][matches[3]-1].status = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d1", (matches[5]=="ON") ? 1 : 0);
 						}
 						break;
 					case "volume":
 						self.zones["c"+matches[2]][matches[3]-1].volume = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("a1", (65535/50)*parseInt(matches[5]));
 							CF.setJoin("s2", (matches[5]*2)+"%");
 						}
 						break;
 					case "mute":
 						self.zones["c"+matches[2]][matches[3]-1].mute = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d2", (matches[5]=="ON") ? 1 : 0);
 						}
 						break;
 					case "currentSource":
 						self.zones["c"+matches[2]][matches[3]-1].currentSource = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							// new source selected
 							self.currentSource = matches[5];
 							// Update the source list to show the selected source
@@ -342,26 +322,26 @@ var Russound = function(systemName, feedbackName) {
 						break;
 					case "doNotDisturb":
 						self.zones["c"+matches[2]][matches[3]-1].doNotDisturb = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d3", (matches[5]=="OFF") ? 0 : 1);
 						}
 						break;
 					case "partyMode":
 						self.zones["c"+matches[2]][matches[3]-1].partyMode = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d4", (matches[5]=="OFF") ? 0 : 1);
 							CF.setJoin("d5", (matches[5]=="MASTER") ? 1 : 0);
 						}
 						break;
 					case "sharedSource":
 						self.zones["c"+matches[2]][matches[3]-1].sharedSource = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d6", (matches[5]=="OFF") ? 0 : 1);
 						}
 						break;
 					case "loudness":
 						self.zones["c"+matches[2]][matches[3]-1].loudness = matches[5];
-						if (self.currentZone == theZone) {
+						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d7", (matches[5]=="OFF") ? 0 : 1);
 						}
 						break;
@@ -407,16 +387,7 @@ var Russound = function(systemName, feedbackName) {
 						self.sources[sourceNum].name = value;
 						// Add the item to the source list, ONLY if name didn't match previous spot
 						if (self.sources[sourceNum].type != "" && oldName != value) {
-							CF.listAdd(self.sourceList, [
-								{
-									s1: value, // Source name string
-									d1: {
-										tokens: {
-											"[sourcenum]": matches[2] // Source number token
-										}
-									},
-								}
-							]);
+							self.generateSourceList();
 						}
 						break;
 					case "channel":
@@ -591,6 +562,56 @@ var Russound = function(systemName, feedbackName) {
 		}
 	};
 
+	self.generateZoneList = function() {
+		var listArray = [];
+		for (var i=1; i<=self.maxControllers; i++) {
+			for (var j=1; j<=self.zones["c"+i].length; j++) {
+				if (self.zones["c"+i][j-1].name != "") {
+					listArray.push({
+						s1: self.zones["c"+i][j-1].name, // Zone name string
+						d1: {
+							tokens: {
+								"[zone]": j,			// Zone number token
+								"[controller]": i	// Controller number token
+							}
+						}
+					});
+				}
+			}
+		}
+		// clear the list
+		CF.listRemove(self.zoneList);
+		// add all zones to list
+		CF.listAdd(self.zoneList, listArray);
+	};
+
+	self.generateSourceList = function() {
+		var listArray = [];
+		for (var i=1; i<=self.controller.numSources; i++) {
+			if (self.sources[i].name != "") {
+				listArray.push({
+					s1: self.sources[i].name, // Source name string
+					d1: {
+						tokens: {
+							"[sourcenum]": i // Source number token
+						}
+					}
+				});
+			}
+		}
+		// clear the list
+		CF.listRemove(self.sourceList);
+		// add all sources to list
+		CF.listAdd(self.sourceList, listArray);
+	};
+
+	self.isCurrentZone = function(c, z){
+		if (self.currentController == c && self.currentZone == z) {
+			return true;
+		}
+		return false;
+	};
+
 	self.allZonesOff = function() {
 		self.sendEvent(1, 1, "AllOff");
 	};
@@ -599,107 +620,119 @@ var Russound = function(systemName, feedbackName) {
 		self.sendEvent(1, 1, "AllOn");
 	};
 
-	self.zonePowerToggle = function(zone) {
-		if (zone === undefined) {
-			zone = self.currentZone;
+	self.zonePowerToggle = function(c, z) {
+		if (z === undefined) {
+			z = self.currentZone;
 		}
-		if (zone > 0 && zone < 49) {
-			var c = self.getZoneController(zone);
-			var z = self.getControllerZone(zone);
-			var theZone = self.zones["c"+c][z];
-			if (theZone.status == "ON") {
-				// Turn the zone OFF
-				self.sendEvent(c, z+1, "ZoneOff");
-			} else {
-				// Turn the zone ON
-				self.sendEvent(c, z+1, "ZoneOn");
-			}
+		if (c === undefined) {
+			c = self.currentController;
 		}
-	};
-
-	self.zoneMuteToggle = function(zone) {
-		if (zone === undefined) {
-			zone = self.currentZone;
-		}
-		if (zone > 0 && zone < 49) {
-			var c = self.getZoneController(zone);
-			var z = self.getControllerZone(zone);
-			self.sendEvent(c, z+1, "KeyRelease", "Mute");
+		var theZone = self.zones["c"+c][z-1];
+		if (theZone.status == "ON") {
+			// Turn the zone OFF
+			self.sendEvent(c, z, "ZoneOff");
+		} else {
+			// Turn the zone ON
+			self.sendEvent(c, z, "ZoneOn");
 		}
 	};
 
-	self.volumeUp = function(zone) {
-		if (zone === undefined) {
-			zone = self.currentZone;
+	self.zoneMuteToggle = function(c, z) {
+		if (z === undefined) {
+			z = self.currentZone;
 		}
-		if (zone > 0 && zone < 49) {
-			var c = self.getZoneController(zone);
-			var z = self.getControllerZone(zone);
-			var theZone = self.zones["c"+c][z];
-			// Turn the volume up
-			self.sendEvent(c, z+1, "KeyPress", "VolumeUp");
+		if (c === undefined) {
+			c = self.currentController;
+		}
+		self.sendEvent(c, z, "KeyRelease", "Mute");
+	};
+
+	self.volumeUp = function(c, z) {
+		if (z === undefined) {
+			z = self.currentZone;
+		}
+		if (c === undefined) {
+			c = self.currentController;
+		}
+		self.sendEvent(c, z, "KeyRelease", "VolumeUp");
+	};
+
+	self.volumeDown = function(c, z) {
+		if (z === undefined) {
+			z = self.currentZone;
+		}
+		if (c === undefined) {
+			c = self.currentController;
+		}
+		self.sendEvent(c, z, "KeyRelease", "VolumeDown");
+	};
+
+	self.zoneDNDToggle = function(c, z) {
+		if (z === undefined) {
+			z = self.currentZone;
+		}
+		if (c === undefined) {
+			c = self.currentController;
+		}
+		var theZone = self.zones["c"+c][z-1];
+		if (theZone.doNotDisturb == "ON") {
+			// Turn the zone DND OFF
+			self.sendEvent(c, z, "DoNotDisturb", "OFF");
+		} else {
+			// Turn the zone DND ON
+			self.sendEvent(c, z, "DoNotDisturb", "ON");
 		}
 	};
 
-	self.volumeDown = function(zone) {
-		if (zone === undefined) {
-			zone = self.currentZone;
+	self.zonePartyToggle = function(c, z) {
+		if (z === undefined) {
+			z = self.currentZone;
 		}
-		if (zone > 0 && zone < 49) {
-			var c = self.getZoneController(zone);
-			var z = self.getControllerZone(zone);
-			var theZone = self.zones["c"+c][z];
-			// Turn the volume up
-			self.sendEvent(c, z+1, "KeyPress", "VolumeDown");
+		if (c === undefined) {
+			c = self.currentController;
 		}
-	};
-
-	self.zoneDNDToggle = function(zone) {
-		if (zone === undefined) {
-			zone = self.currentZone;
-		}
-		if (zone > 0 && zone < 49) {
-			var c = self.getZoneController(zone);
-			var z = self.getControllerZone(zone);
-			var theZone = self.zones["c"+c][z];
-			if (theZone.doNotDisturb == "ON") {
-				// Turn the zone DND OFF
-				self.sendEvent(c, z+1, "DoNotDisturb", "OFF");
-			} else {
-				// Turn the zone DND ON
-				self.sendEvent(c, z+1, "DoNotDisturb", "ON");
-			}
+		var theZone = self.zones["c"+c][z-1];
+		if (theZone.partyMode == "OFF") {
+			// Turn the zone Party Mode ON
+			self.sendEvent(c, z, "PartyMode", "ON");
+		} else {
+			// Turn the zone Party Mode OFF
+			self.sendEvent(c, z, "PartyMode", "OFF");
 		}
 	};
-
-	self.zonePartyToggle = function(zone) {
-		if (zone === undefined) {
-			zone = self.currentZone;
+	
+	self.zonePartyMaster = function(c, z) {
+		if (z === undefined) {
+			z = self.currentZone;
 		}
-		if (zone > 0 && zone < 49) {
-			var c = self.getZoneController(zone);
-			var z = self.getControllerZone(zone);
-			var theZone = self.zones["c"+c][z];
-			if (theZone.partyMode == "OFF") {
-				// Turn the zone Party Mode ON
-				self.sendEvent(c, z+1, "PartyMode", "ON");
-			} else {
-				// Turn the zone Part Mode OFF
-				self.sendEvent(c, z+1, "PartyMode", "OFF");
-			}
+		if (c === undefined) {
+			c = self.currentController;
 		}
+		self.sendEvent(c, z, "PartyMode", "MASTER");
 	};
 
 	self.getZones = function() {
 		// Loop through zones to get their details
-		for (var i = 1; i <= self.controller.numZones; i++) {
-			// First get the names of each zone
-			setTimeout(function(zone) {
-				var c = self.getZoneController(zone);
-				var z = self.getControllerZone(zone);
-				self.sendMsg("GET", c, z+1, null, ".name");
-			}, i*10, i);
+		for (var i=1; i<=self.maxControllers; i++) {
+			for (var j=1; j<=self.zones["c"+i].length; j++) {
+				// First get the names of each zone
+				setTimeout(function(c, z) {
+					self.sendMsg("GET", c, z, null, ".name");
+				}, i*10, i, j);
+			}
 		}
+
+		// On launch, we want to have the last selected zone showing
+		// So we need to persist the zone and controller selection in a global token
+		// Check that the global tokens exists, and have been set. Default token will be controller 0 and zone 0 (undefined)
+		// in which case we use the lowest defined zone to start with. Then each launch we use the persisted value
+		CF.getJoin(CF.GlobalTokensJoin, function(j, v, tokens) {
+			if (tokens["[lastcontroller]"] !== undefined && tokens["[lastzone]"] !== undefined) {
+				self.selectZone(tokens["[lastcontroller]"], tokens["[lastzone]"]);
+			} else {
+				// No token in the GUI, create one that persists... TODO - not yet available via JS API
+			}
+		});
 	};
 
 	self.getSources = function() {
@@ -715,33 +748,29 @@ var Russound = function(systemName, feedbackName) {
 	self.selectZoneList = function(listJoin) {
 		// listJoin example: l1:0:d1
 		CF.getJoin(listJoin, function(j,v,t) {
-			self.selectZone(t["[zonenum]"]);
+			self.selectZone(t["[controller]"], t["[zone]"]);
 		});
 		// After a zone is selected, ignore new "zone name" updates so they dont append to zone list each time.
 		//self.zoneListComplete = true;
 	};
 
-	self.selectZone = function(zone) {
-		if (zone > 0 && zone < 49) {
-			// Stop watching the previous zone if one was selected
-			if (self.currentZone > 0) {
-				var c = self.getZoneController(self.currentZone);
-				var z = self.getControllerZone(self.currentZone);
-				self.sendMsg("WATCH", c, z+1, null, " OFF");
-			}
-
-			// Select the zone, adjust all on screen data for the new zone, show the selected zones source control subpage
-			self.currentZone = zone;
-			var c = self.getZoneController(zone);
-			var z = self.getControllerZone(zone);
-			var theZone = self.zones["c"+c][z];
-			LOG_RUSSOUND("Current Zone: "+theZone.name);
-			// Start watching the current zone
-			self.sendMsg("WATCH", c, z+1, null, " ON");
-
-			// Save new zone to global token
-			CF.setToken(CF.GlobalTokensJoin, "[lastzone]", zone);
+	self.selectZone = function(c, z) {
+		// Stop watching the previous zone if one was selected
+		if (self.currentZone > 0 && self.currentController > 0) {
+			self.sendMsg("WATCH", self.currentController, self.currentZone, null, " OFF");
 		}
+
+		// Select the zone, adjust all on screen data for the new zone, show the selected zones source control subpage
+		self.currentController = c;
+		self.currentZone = z;
+		var theZone = self.zones["c"+c][z-1];
+		LOG_RUSSOUND("Current Zone: "+theZone.name);
+		// Start watching the current zone
+		self.sendMsg("WATCH", c, z, null, " ON");
+
+		// Save new zone to global token
+		CF.setToken(CF.GlobalTokensJoin, "[lastcontroller]", c);
+		CF.setToken(CF.GlobalTokensJoin, "[lastzone]", z);
 	};
 
 	self.selectSourceList = function(listJoin) {
@@ -749,8 +778,6 @@ var Russound = function(systemName, feedbackName) {
 		CF.getJoin(listJoin, function(j,v,t) {
 			self.selectSource(t["[sourcenum]"]);
 		});
-		// After a zone is selected, ignore new "zone name" updates so they dont append to zone list each time.
-		//self.zoneListComplete = true;
 	};
 
 	self.selectSource = function(source) {
@@ -765,9 +792,7 @@ var Russound = function(systemName, feedbackName) {
 
 			// Set the zone to the chosen source
 			self.currentSource = source;
-			var c = self.getZoneController(self.currentZone);
-			var z = self.getControllerZone(self.currentZone);
-			self.sendEvent(c, z+1, "SelectSource", source);
+			self.sendEvent(self.currentController, self.currentZone, "SelectSource", source);
 		}
 
 		// Hide the previous source subpage
@@ -784,39 +809,27 @@ var Russound = function(systemName, feedbackName) {
 	};
 
 	self.play = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Play");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Play");
 	};
 
 	self.pause = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Pause");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Pause");
 	};
 
 	self.stop = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Stop");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Stop");
 	};
 
 	self.prev = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Previous");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Previous");
 	};
 
 	self.next = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Next");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Next");
 	};
 
 	self.toggleShuffle = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Shuffle");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Shuffle");
 	};
 
 	// ======================================================================
@@ -824,39 +837,27 @@ var Russound = function(systemName, feedbackName) {
 	// ======================================================================
 
 	self.tunerBandToggle = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Play");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Play");
 	};
 
 	self.tunerMuteToggle = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Pause");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Pause");
 	};
 
 	self.tunerUp = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "ChannelUp");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "ChannelUp");
 	};
 
 	self.tunerDown = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "ChannelDown");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "ChannelDown");
 	};
 
 	self.tunerPresetNext = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Next");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Next");
 	};
 
 	self.tunerPresetPrev = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "KeyRelease", "Previous");
+		self.sendEvent(self.currentController, self.currentZone, "KeyRelease", "Previous");
 	};
 
 	// ======================================================================
@@ -864,33 +865,27 @@ var Russound = function(systemName, feedbackName) {
 	// ======================================================================
 
 	self.mmInit = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "MMInit");
+		self.sendEvent(self.currentController, self.currentZone, "MMInit");
 	};
 
 	self.mmSelectItem = function(item) {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "MMSelectItem", item);
+		// Default to first item if none is defined
+		if (item === undefined) {
+			item = 1;
+		}
+		self.sendEvent(self.currentController, self.currentZone, "MMSelectItem", item);
 	};
 
 	self.mmNextItems = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "MMNextItems");
+		self.sendEvent(self.currentController, self.currentZone, "MMNextItems");
 	};
 
 	self.mmPrevItems = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "MMPrevItems");
+		self.sendEvent(self.currentController, self.currentZone, "MMPrevItems");
 	};
 
 	self.mmBack = function() {
-		var c = self.getZoneController(self.currentZone);
-		var z = self.getControllerZone(self.currentZone);
-		self.sendEvent(c, z+1, "MMPrevScreen");
+		self.sendEvent(self.currentController, self.currentZone, "MMPrevScreen");
 	};
 
 	// ======================================================================
@@ -943,20 +938,6 @@ var Russound = function(systemName, feedbackName) {
 		LOG_RUSSOUND("SENT - ", msg);
 	};
 
-	// Helper function for using zones 1 - 48 to return the controller number
-	self.getZoneController = function(zone) {
-		return Math.floor((zone-1)/8)+1;
-	};
-
-	// Helper function for zones 1-48 to return the true zone array number (0-7)
-	self.getControllerZone = function(zone) {
-		if (zone > 0) {
-			return (zone-1)%8;
-		} else {
-			return 0;
-		}		
-	};
-
 	// Helper function to return the zone number (1-48) from the controller and zone numbers
 	self.getZone = function(c, z) {
 		return (parseInt(c)-1) * 8 + parseInt(z);
@@ -973,8 +954,10 @@ var Russound = function(systemName, feedbackName) {
 	CF.watch(CF.ConnectionStatusChangeEvent, systemName, self.onConnectionChange, true);
 
 	// Create the zone array
-	for (var i = 0; i < self.controller.numZones; i++) {
-		self.zones["c"+self.getZoneController(i+1)].push(new zone());
+	for (var i = 1; i <= self.maxControllers; i++) {
+		for (var j = 0; j < self.controller.numZones; j++) {
+			self.zones["c"+i].push(new zone());
+		}
 	}
 
 	// Create the sources array
