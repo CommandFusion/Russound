@@ -119,7 +119,7 @@
     <theme type="text" name=".cfblue2_lrg_c"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 24px; font-family: 'Futura'; text-align: center; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
     <theme type="text" name=".cfblue2_lrg_l"><![CDATA[ text-shadow: rgba(0,0,0,0.78) 1px 1px 1px; color: White; font-size: 24px; font-family: 'Futura'; text-align: left; vertical-align: middle; font-weight: normal; font-style: none; text-decoration: none; display: table-cell;]]></theme>
     <theme type="button" name=".cfblue2_grey_lrg_center[state='0']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_off.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
-    <theme type="button" name=".cfblue2_grey_lrg_center[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: right; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".cfblue2_grey_lrg_center[state='1']"><![CDATA[padding: 0px 10px 2px 4px; -webkit-border-image: url(btn_plaingrey_lrg_on.png) 0 10 2 4; text-shadow: rgba(0,0,0,0.78) 0px -1px 0px; color: White; font-size: 24px; font-family: 'Futura'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
   </themes>
   <tokens>
     <token name="[lastzone]" value="0" persist="1" />
@@ -135,8 +135,9 @@
       <subpage name="Source_DABTuner" x="324" y="85" j="23" transition1="moveIn" subtype1="fromRight" time1="0.5" ease1="" transition2="moveIn" subtype2="fromRight" time2="0.5" ease2="" clickthrough="0" topmost="0" v="1" l="0" />
       <subpage name="Source_SMS3" x="324" y="85" j="22" transition1="moveIn" subtype1="fromRight" time1="0.5" ease1="" transition2="moveIn" subtype2="fromRight" time2="0.5" ease2="" clickthrough="0" topmost="0" v="1" l="1" />
       <subpage name="Source_List" x="741" y="302" j="10" transition1="moveIn" subtype1="fromBottom" time1="0.5" ease1="easeOut" transition2="moveIn" subtype2="fromBottom" time2="0.5" ease2="easeIn" clickthrough="0" topmost="0" v="1" l="0" />
-      <subpage name="BottomBar" x="318" y="697" j="0" transition1="None" subtype1="None" time1="0" ease1="" transition2="None" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="1" v="1" l="0" />
+      <subpage name="BottomBar" x="318" y="697" j="100" transition1="moveIn" subtype1="fromBottom" time1="0.5" ease1="easeOut" transition2="moveIn" subtype2="fromBottom" time2="0.5" ease2="easeOut" clickthrough="0" topmost="0" v="1" l="0" />
       <subpage name="TopBar" x="318" y="10" j="0" transition1="None" subtype1="None" time1="0" ease1="" transition2="None" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="0" v="1" l="0" />
+      <subpage name="TopBar_Toggles" x="318" y="10" j="100" transition1="fade" subtype1="None" time1="0.5" ease1="" transition2="fade" subtype2="None" time2="0.5" ease2="" clickthrough="1" topmost="0" v="1" l="0" />
       <img x="0" y="20" w="325" h="748" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">list_L_bg.png</img>
       <list j="1" x="1" y="82" w="316" h="686" headerSub="" titleSub="" contentSub="List_ZoneItem" footerSub="" orientation="v" l="0" swipedelete="0" />
       <img x="0" y="20" w="318" h="72" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0">zone_top.png</img>
@@ -152,6 +153,12 @@
       <inactive s="1">   Zone Name</inactive>
       <active s="1">   Zone Name</active>
     </btn>
+    <btn j="2" x="289" y="7" w="16" h="16" t="cfblue2_checkbox" flip="None" sim="0" l="0" s="1">
+      <inactive s="0">
+      </inactive>
+      <active s="0">
+      </active>
+    </btn>
   </subpage>
   <subpage name="TopBar" w="706" h="82" t="top_bar_bg">
     <img x="12" y="19" w="21" h="44" j="0" clickthrough="0" refresh="0" l="0" noCache="0" downloadIndicator="0" clearOnURLChange="0">bottom_textarea_L.png</img>
@@ -165,22 +172,6 @@
       <active s="0">
         <img x="10" y="5" w="32" h="32">transports_sml_12_wht.png</img>
       </active>
-    </btn>
-    <btn j="3" x="442" y="19" w="82" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zoneDNDToggle()">
-      <inactive s="0">DND</inactive>
-      <active s="0">DND</active>
-    </btn>
-    <btn j="4" x="531" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zonePartyToggle()">
-      <inactive s="0">P</inactive>
-      <active s="0">P</active>
-    </btn>
-    <btn j="5" x="588" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zonePartyMaster()">
-      <inactive s="0">M</inactive>
-      <active s="0">M</active>
-    </btn>
-    <btn j="6" x="645" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1">
-      <inactive s="0">S</inactive>
-      <active s="0">S</active>
     </btn>
   </subpage>
   <subpage name="BottomBar" w="706" h="71">
@@ -214,7 +205,7 @@
         <img x="13" y="0" w="26" h="44">icon_arrowUp.png</img>
       </inactive>
       <active s="0">
-        <img x="13" y="2" w="26" h="44">icon_arrowDown.png</img>
+        <img x="14" y="2" w="26" h="44">icon_arrowDown.png</img>
       </active>
     </btn>
     <txt j="3" x="476" y="16" w="164" h="44" t="cfblue2_title_l" wrap="False" l="0">Source Name</txt>
@@ -496,6 +487,24 @@
       <active s="0">
         <img x="12" y="0" w="43" h="42">transport_pause.png</img>
       </active>
+    </btn>
+  </subpage>
+  <subpage name="TopBar_Toggles" w="706" h="82">
+    <btn j="3" x="442" y="19" w="82" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zoneDNDToggle()">
+      <inactive s="0">DND</inactive>
+      <active s="0">DND</active>
+    </btn>
+    <btn j="4" x="531" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zonePartyToggle()">
+      <inactive s="0">P</inactive>
+      <active s="0">P</active>
+    </btn>
+    <btn j="5" x="588" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1" js="RussoundC.zonePartyMaster()">
+      <inactive s="0">M</inactive>
+      <active s="0">M</active>
+    </btn>
+    <btn j="6" x="645" y="20" w="52" h="44" t="cfblue2_bottom" flip="None" sim="0" l="0" s="1">
+      <inactive s="0">S</inactive>
+      <active s="0">S</active>
     </btn>
   </subpage>
   <subpage name="Source_List" w="274" h="404">

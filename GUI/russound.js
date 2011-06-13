@@ -189,6 +189,7 @@ var Russound = function(systemName, feedbackName) {
 		this.status = "OFF";		// power status: OFF, ON, STANDBY
 		this.mute = "OFF";			// OFF, ON
 		this.sharedSource = "OFF";	// OFF, ON
+		this.listIndex = -1;		// Index of the item in the zone list
 	};
 
 	// source object prototype
@@ -291,56 +292,84 @@ var Russound = function(systemName, feedbackName) {
 						}
 						break;
 					case "status":
-						self.zones["c"+matches[2]][matches[3]-1].status = matches[5];
+						theZone.status = matches[5];
+						CF.listUpdate(self.zoneList, [
+							{
+								index: theZone.listIndex,
+								d2: (theZone.status == "ON") ? 1 : 0
+							}
+						]);
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d1", (matches[5]=="ON") ? 1 : 0);
+							if (matches[5]=="ON") {
+								// Show zone control objects
+								CF.setJoin("d100", 1);
+								// Show current source page
+								CF.setJoin(self.currentSourcePage, 1);
+							} else {
+								// Hide zone control objects
+								CF.getJoin("d10", function(j,v) {
+									// If source list subpage is showing, hide it before hiding the bottom bar
+									if (v == 1) {
+										CF.setJoin("d10", 0);
+										setTimeout(function() {CF.setJoin("d100", 0);}, 500);
+									} else {
+										CF.setJoin("d100", 0);
+									}
+								});
+								// Hide current source page
+								CF.log("HIDE self.currentSourcePage: "+self.currentSourcePage);
+								CF.setJoin(self.currentSourcePage, 0);
+							}
 						}
 						break;
 					case "volume":
-						self.zones["c"+matches[2]][matches[3]-1].volume = matches[5];
+						theZone.volume = matches[5];
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("a1", (65535/50)*parseInt(matches[5]));
 							CF.setJoin("s2", (matches[5]*2)+"%");
 						}
 						break;
 					case "mute":
-						self.zones["c"+matches[2]][matches[3]-1].mute = matches[5];
+						theZone.mute = matches[5];
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d2", (matches[5]=="ON") ? 1 : 0);
 						}
 						break;
 					case "currentSource":
-						self.zones["c"+matches[2]][matches[3]-1].currentSource = matches[5];
+						theZone.currentSource = matches[5];
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							// new source selected
 							self.currentSource = matches[5];
 							// Update the source list to show the selected source
-							CF.setJoin("s3", self.sources[self.currentSource].name);
+							CF.setJoin("s3", self.sources[matches[5]].name);
 							// Change the source subpage here based on the source type
 							self.selectSource();
 						}
 						break;
 					case "doNotDisturb":
-						self.zones["c"+matches[2]][matches[3]-1].doNotDisturb = matches[5];
+						theZone.doNotDisturb = matches[5];
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d3", (matches[5]=="OFF") ? 0 : 1);
 						}
 						break;
 					case "partyMode":
-						self.zones["c"+matches[2]][matches[3]-1].partyMode = matches[5];
+						theZone.partyMode = matches[5];
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d4", (matches[5]=="OFF") ? 0 : 1);
 							CF.setJoin("d5", (matches[5]=="MASTER") ? 1 : 0);
 						}
+						// Refresh the zone list to show the new zone power states
+						self.generateZoneList();
 						break;
 					case "sharedSource":
-						self.zones["c"+matches[2]][matches[3]-1].sharedSource = matches[5];
+						theZone.sharedSource = matches[5];
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d6", (matches[5]=="OFF") ? 0 : 1);
 						}
 						break;
 					case "loudness":
-						self.zones["c"+matches[2]][matches[3]-1].loudness = matches[5];
+						theZone.loudness = matches[5];
 						if (self.isCurrentZone(matches[2], matches[3])) {
 							CF.setJoin("d7", (matches[5]=="OFF") ? 0 : 1);
 						}
@@ -574,8 +603,10 @@ var Russound = function(systemName, feedbackName) {
 								"[zone]": j,			// Zone number token
 								"[controller]": i	// Controller number token
 							}
-						}
+						},
+						d2: (self.zones["c"+i][j-1].status == "ON") ? 1 : 0
 					});
+					self.zones["c"+i][j-1].listIndex = listArray.length-1;
 				}
 			}
 		}
@@ -614,10 +645,16 @@ var Russound = function(systemName, feedbackName) {
 
 	self.allZonesOff = function() {
 		self.sendEvent(1, 1, "AllOff");
+		CF.listUpdate(self.zoneList, [
+			{ index: CF.AllItems, d2: 0 }
+		]);
 	};
 
 	self.allZonesOn = function() {
 		self.sendEvent(1, 1, "AllOn");
+		CF.listUpdate(self.zoneList, [
+			{ index: CF.AllItems, d2: 1 }
+		]);
 	};
 
 	self.zonePowerToggle = function(c, z) {
@@ -654,7 +691,7 @@ var Russound = function(systemName, feedbackName) {
 		if (c === undefined) {
 			c = self.currentController;
 		}
-		self.sendEvent(c, z, "KeyRelease", "VolumeUp");
+		self.sendEvent(c, z, "KeyPush", "VolumeUp");
 	};
 
 	self.volumeDown = function(c, z) {
@@ -664,7 +701,7 @@ var Russound = function(systemName, feedbackName) {
 		if (c === undefined) {
 			c = self.currentController;
 		}
-		self.sendEvent(c, z, "KeyRelease", "VolumeDown");
+		self.sendEvent(c, z, "KeyPush", "VolumeDown");
 	};
 
 	self.zoneDNDToggle = function(c, z) {
@@ -764,7 +801,6 @@ var Russound = function(systemName, feedbackName) {
 		self.currentController = c;
 		self.currentZone = z;
 		var theZone = self.zones["c"+c][z-1];
-		LOG_RUSSOUND("Current Zone: "+theZone.name);
 		// Start watching the current zone
 		self.sendMsg("WATCH", c, z, null, " ON");
 
@@ -783,7 +819,7 @@ var Russound = function(systemName, feedbackName) {
 	self.selectSource = function(source) {
 		if (source > 0 && source < 13) {
 			// Stop watching the previous source if one was selected
-			if (self.currentSource > 0) {
+			if (self.currentSource > 0 && self.currentSource != source) {
 				self.sendMsg("WATCH", null, null, self.currentSource, " OFF");
 			}
 
@@ -795,17 +831,20 @@ var Russound = function(systemName, feedbackName) {
 			self.sendEvent(self.currentController, self.currentZone, "SelectSource", source);
 		}
 
+		// Show the correct source subpage
+		var sourcePage = self.sourcePages[self.sources[self.currentSource].type.toLowerCase()];
+
 		// Hide the previous source subpage
 		if (self.currentSourcePage !== null) {
 			CF.setJoin(self.currentSourcePage, 0);
 		}
 
-		// Show the correct source subpage
-		var sourceType = self.sources[self.currentSource].type.toLowerCase();
-		self.currentSourcePage = self.sourcePages[sourceType];
-		
-		// Show the subpage
-		CF.setJoin(self.currentSourcePage, 1);
+		// Only show the new source page if it has changed (prevent any slight flickers when hiding/showing same subpage quickly)
+		if (self.zones["c"+self.currentController][self.currentZone-1].status == "ON") {
+			// Show the subpage
+			CF.setJoin(sourcePage, 1);
+		}
+		self.currentSourcePage = sourcePage;
 	};
 
 	self.play = function() {
